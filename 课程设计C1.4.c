@@ -35,6 +35,19 @@ struct zg
 	float sfgz;     //实发工资
 }zg[100];
 int n=0;
+/***************************************************************************
+Function:read（）           
+Description:用来读取文件“gx.dat”中的数据，并存到结构体zggz中 
+Calls:  grsds()   //调用个人所得税函数计算个人所得税                  
+Called By:main()函数。                   
+Table Accessed: 文件“gx.dat”         
+Table Updated: 无                    
+Input:                
+Output:              
+Return:          
+Others:         
+***************************************************************************/
+
 int read()								//读文件模块
 {		
 	FILE *fp;                               //定义文件指针
@@ -55,6 +68,20 @@ int read()								//读文件模块
 	fclose(fp);	                          //关闭文件
 	return 0;
 }
+
+/***************************************************************************
+Function:write（）             // 函数名称
+Description:用来将结构体中数据写到“gx.dat”                  // 函数功能、性能等的描述
+Calls:  system("pause")                   
+Called By:main()函数。                   
+Table Accessed: 文件“gx.dat”          
+Table Updated:  文件“gx.dat”                    
+Input:               
+Output:             
+Return:          
+Others:          
+***************************************************************************/
+
 int write()                                   //5.保存模块
 {
 	int i;
@@ -73,6 +100,20 @@ int write()                                   //5.保存模块
 	system("pause");
 	return 0;
 }
+
+/***************************************************************************
+Function:grsds（）             // 函数名称
+Description:计算个人所得税                  // 函数功能、性能等的描述
+Calls:  无                    
+Called By:read（），add()函数。                   
+Table Accessed: 文件 无          
+Table Updated: 无                     
+Input:                
+Output:              
+Return:         
+Others:         
+***************************************************************************/
+
 int grsds()								//计算个人所得税模块
 {
 	zg[n].yfgz=zg[n].gwgz+zg[n].jxgz+zg[n].xjgz+zg[n].zwjt;  //计算应发工资  
@@ -115,6 +156,20 @@ int grsds()								//计算个人所得税模块
 	zg[n].sfgz=zg[n].yfgz-zg[n].grsds;  //计算实发工资
 	return 0;
 }
+
+/***************************************************************************
+Function:find（）             
+Description:查找相同工号的职工信息                  
+Calls:  system("pause")                   
+Called By:main()函数。                   
+Table Accessed:           
+Table Updated:                  
+Input:  gh 输入所需查找的工号      
+Output:  输出查找出的人的全部信息      
+Return:          
+Others:          
+***************************************************************************/
+
 int find()                     //查找模块
 {
 	int i;					  
@@ -146,6 +201,20 @@ int find()                     //查找模块
 	system("pause");
 	return 0;
 }
+
+/***************************************************************************
+Function:add（）             
+Description:添加职工记录                  
+Calls:  system("pause")                   
+Called By:main()函数。                   
+Table Accessed:           
+Table Updated:                     
+Input:   输入职工信息            
+Output:             
+Return:          
+Others:          
+***************************************************************************/
+
 int add()               //添加模块
 {
 	int i;
@@ -184,6 +253,20 @@ int add()               //添加模块
 	system("pause");
 	return 0;
 }
+
+/***************************************************************************
+Function:del（）             
+Description:删除指定职工的信息                 
+Calls:  system("pause")                   
+Called By:main()函数。                   
+Table Accessed:           
+Table Updated:                      
+Input: 输入所需删除职工的工号，选择是否删除变量	              
+Output:             
+Return:          
+Others:          
+***************************************************************************/
+
 int del()                                                   //删除模块
 {
 	int i,j,choice;
@@ -194,7 +277,17 @@ int del()                                                   //删除模块
 	{
 		if(strcmp(zg[i].gh,gh)==0)                         //判断工号是否存在
 		{	
-			printf("是否确认删除，删除请输入1，取消请输入0:\n");   //选择是否要删除
+			printf("工号\t  姓名\t\t岗位工资\t薪级工资\t职务津贴\t绩效工资\t应发工资\t  个人所得税  \t实发工资\n");
+			printf("%-10s",zg[i].gh);
+			printf("%-10s",zg[i].name);
+			printf("%12.2f\t",zg[i].gwgz);
+			printf("%8.2f\t",zg[i].xjgz);
+			printf("%8.2f\t",zg[i].zwjt);
+			printf("%8.2f\t",zg[i].jxgz);
+			printf("%8.2f\t",zg[i].yfgz);
+			printf("%8.2f\t",zg[i].grsds);
+			printf("%8.2f\t\n",zg[i].sfgz);
+			printf("是否确认删除该职工，删除请输入1，取消请输入0:\n");   //选择是否要删除
 			scanf("%d",&choice);
 			if(choice==1)
 			{
@@ -220,6 +313,18 @@ int del()                                                   //删除模块
 	system("pause");
 	return 0;
 }
+/***************************************************************************
+Function:list（）             
+Description:显示全部职工信息记录                  
+Calls:  system("pause")                   
+Called By:main()函数。                   
+Table Accessed:           
+Table Updated:                     
+Input:               
+Output:    输出职工信息         
+Return:          
+Others:          
+***************************************************************************/
 int list()                        //显示模块
 {
 	int i;
@@ -240,6 +345,20 @@ int list()                        //显示模块
 	system("pause");
 	return 0;
 }
+
+/***************************************************************************
+Function:modify（）             
+Description:修改职工的某一个信息                 
+Calls:  system("pause")                   
+Called By:main()函数。                   
+Table Accessed:           
+Table Updated:                      
+Input:          输入所需修改内容
+Output:        输出修改前和修改后结果     
+Return:          
+Others:          
+***************************************************************************/
+
 void modify()    //修改模块
 {
 	int i,choice;
@@ -317,12 +436,18 @@ void main()
 	grsds();
 	do{	
 		system("cls");
-		printf("*--------------************************************欢迎使用职工工资管理系统************************************-----------------*\n");
-		printf("*                                                    请选择所需功能:                                                            *\n");
-		printf("*                                            1.查询信息   2.修改信息   3.增添信息                                               *\n");
-		printf("*                                     4.删除信息   5.保存信息    6.浏览信息  7.退出程序                                         *\n");
-		printf("*--------------***************************************************************************************************--------------*\n");
-		printf("请输入您所要选择的功能：");
+		printf("                                 ### 欢迎使用广西民族大学软件与信息安全学院职工工资管理系统  ###                                 \n\n\n");
+		printf("                                 请选择<1 - 7> :\n");
+		printf("                                 ===============================================================                                 \n");
+		printf("                                 |                 1.查询职工工资记录                          |                                 \n");
+		printf("                                 |                 2.修改职工工资记录                          |                                 \n");
+		printf("                                 |                 3.添加职工工资记录                          |                                 \n");
+		printf("                                 |                 4.删除职工工资记录                          |                                 \n");
+		printf("                                 |                 5.保存数据到文件                            |                                 \n");
+		printf("                                 |                 6.浏览职工记录                              |                                 \n");
+		printf("                                 |                 7.退出系统                                  |                                 \n");
+		printf("                                 ===============================================================                                 \n");
+		printf("                                 请输入您所要选择的功能：");
 		scanf("%d",&i);
 		    if(i==1)
 			{
@@ -355,5 +480,5 @@ void main()
 			}
 			else  
 				printf("没有这个功能，请重新选择");
-		}while(i!=7);
+		}while(1);
 }
